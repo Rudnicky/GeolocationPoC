@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeolocationPoC.Persistence"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeolocationPoC.Core", "GeolocationPoC.Core\GeolocationPoC.Core.csproj", "{923E0B26-6B7F-4617-8FE5-43A27C05C8AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeolocationPoC.WebApi", "GeolocationPoC.WebApi\GeolocationPoC.WebApi.csproj", "{3D27805D-CB51-4806-82C1-2BB27FCE3383}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeolocationPoC.WebApi", "GeolocationPoC.WebApi\GeolocationPoC.WebApi.csproj", "{3D27805D-CB51-4806-82C1-2BB27FCE3383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeolocationPoC.Tests", "GeolocationPoC.Tests\GeolocationPoC.Tests.csproj", "{60A9A94F-6604-44BA-A58D-05F53151E37C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3D27805D-CB51-4806-82C1-2BB27FCE3383}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D27805D-CB51-4806-82C1-2BB27FCE3383}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D27805D-CB51-4806-82C1-2BB27FCE3383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A9A94F-6604-44BA-A58D-05F53151E37C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A9A94F-6604-44BA-A58D-05F53151E37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A9A94F-6604-44BA-A58D-05F53151E37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A9A94F-6604-44BA-A58D-05F53151E37C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
