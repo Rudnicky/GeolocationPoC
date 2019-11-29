@@ -6,6 +6,7 @@ using Newtonsoft.Json.Serialization;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
@@ -65,6 +66,36 @@ namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
             TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
 
             return result;
+        }
+
+        public async Task<string> PostAsync(string uri)
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            HttpClient httpClient = CreateHttpClient(clientHandler);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, uri);
+
+            var response = await httpClient.SendAsync(request).ConfigureAwait(false);
+
+            await HandleResponse(response);
+
+            return response.StatusCode.ToString();
+        }
+
+        public async Task<string> PutAsync(string uri, string json)
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            HttpClient httpClient = CreateHttpClient(clientHandler);
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync(uri, content);
+
+            await HandleResponse(response);
+
+            return response.StatusCode.ToString();
         }
 
         private HttpClient CreateHttpClient(HttpClientHandler clientHandler)

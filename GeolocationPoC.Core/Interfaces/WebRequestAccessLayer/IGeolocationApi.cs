@@ -1,6 +1,6 @@
 ﻿using GeolocationPoC.Core.Domain;
-using GeolocationPoC.Core.Domain.Db;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GeolocationPoC.Core.Interfaces.WebRequestAccessLayer
@@ -9,8 +9,8 @@ namespace GeolocationPoC.Core.Interfaces.WebRequestAccessLayer
     {
         Task<IEnumerable<Geolocation>> GetAll();
         Task<Geolocation> Get(string id);
-        Task Post(string ip);
-        Task Put(Geolocation geolocation);
+        Task<string> Post(string ip);
+        Task<string> Put(Geolocation geolocation);
         Task<string> Delete(string id);
     }
 }

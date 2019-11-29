@@ -34,26 +34,7 @@ namespace GeolocationPoC.Controllers
         [HttpPost("/Create")]
         public async Task<IActionResult> Create(IpAddress ipAddress)
         {
-            //// get list of geolocations from DB
-            //var geolocations = await _geolocationApi.GetAll();
-
-            //// get data through web service call
-            //var result = await _geolocationApi.Get(ipAddress.Ip);
-
-            //if (geolocations != null && result != null)
-            //{
-            //    var geolocation = new Geolocation()
-            //    {
-            //        Ip = result.Ip,
-            //        CountryName = result.CountryName,
-            //        Latitude = result.Latitude,
-            //        Longitude = result.Longitude,
-            //        Location = result.Location
-            //    };
-
-            //    // add obtained geolocation to the DB
-            //    _geolocationDbRepository.Add(geolocation);
-            //}
+            await _geolocationApi.Post(ipAddress.Ip);
 
             return RedirectToAction("Index");
         }
@@ -61,7 +42,7 @@ namespace GeolocationPoC.Controllers
         [HttpGet("/Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var goelocation = _geolocationApi.Get(id.ToString());
+            var goelocation = await _geolocationApi.Get(id.ToString());
             if (goelocation != null)
             {
                 await _geolocationApi.Delete(id.ToString());
@@ -70,9 +51,9 @@ namespace GeolocationPoC.Controllers
         }
 
         [HttpGet("/Details/{id}")]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var goelocation = _geolocationApi.Get(id.ToString());
+            var goelocation = await _geolocationApi.Get(id.ToString());
             if (goelocation != null)
             {
                 return View("Details", goelocation);
@@ -81,20 +62,20 @@ namespace GeolocationPoC.Controllers
         }
 
         [HttpGet("/Edit/{id}")]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            //var goelocation = _geolocationDbRepository.Get(id);
-            //if (goelocation != null)
-            //{
-            //    return View("Edit", goelocation);
-            //}
+            var goelocation = await _geolocationApi.Get(id.ToString());
+            if (goelocation != null)
+            {
+                return View("Edit", goelocation);
+            }
             return NotFound();
         }
 
         [HttpPost("/Edit/{id}")]
-        public IActionResult Edit(Geolocation geolocation)
+        public async Task<IActionResult> Edit(Geolocation geolocation)
         {
-            //_geolocationDbRepository.Update(geolocation);
+            await _geolocationApi.Put(geolocation);
 
             return RedirectToAction("Index");
         }

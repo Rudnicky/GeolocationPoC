@@ -3,6 +3,8 @@ using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
 using GeolocationPoC.Core.Utils;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
@@ -34,14 +36,18 @@ namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
             return await _requestProvider.GetAsync<IEnumerable<Geolocation>>(url);
         }
 
-        public Task Post(string ip)
+        public async Task<string> Post(string ip)
         {
-            throw new NotImplementedException();
+            var url = $"{Constants.LOCAL_ENDPOINT}/create/{ip}";
+            return await _requestProvider.PostAsync(url);
         }
 
-        public Task Put(Geolocation geolocation)
+        public async Task<string> Put(Geolocation geolocation)
         {
-            throw new NotImplementedException();
+            var url = $"{Constants.LOCAL_ENDPOINT}/update";
+            var json = JsonSerializer.Serialize(geolocation);
+
+            return await _requestProvider.PutAsync(url, json);
         }
     }
 }

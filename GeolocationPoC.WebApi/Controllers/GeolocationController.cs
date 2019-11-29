@@ -51,7 +51,7 @@ namespace GeolocationPoC.WebApi.Controllers
                 }
 
                 var geolocation = await _geolocationDbRepository.Get(id);
-                if (geolocation != null)
+                if (geolocation == null)
                 {
                     return NotFound($"Object with specified id={id} not found");
                 }
