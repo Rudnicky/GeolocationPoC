@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace GeolocationPoC.Core.Interfaces.Web
+namespace GeolocationPoC.Core.Interfaces.WebRequestAccessLayer
 {
     public interface IRequestProvider
     {

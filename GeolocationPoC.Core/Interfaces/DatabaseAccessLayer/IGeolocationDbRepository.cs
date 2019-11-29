@@ -1,7 +1,7 @@
 ﻿using GeolocationPoC.Core.Domain;
 using System.Threading.Tasks;
 
-namespace GeolocationPoC.Core.Interfaces.Db
+namespace GeolocationPoC.Core.Interfaces.DatabaseAccessLayer
 {
     public interface IGeolocationDbRepository : IRepository<Geolocation>
     {

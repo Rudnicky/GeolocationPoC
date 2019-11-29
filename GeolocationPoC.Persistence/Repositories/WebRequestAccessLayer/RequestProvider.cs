@@ -1,5 +1,5 @@
 ﻿using GeolocationPoC.Core.Exceptions;
-using GeolocationPoC.Core.Interfaces.Web;
+using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace GeolocationPoC.Persistence.Repositories.Web
+namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
 {
     public class RequestProvider : IRequestProvider
     {

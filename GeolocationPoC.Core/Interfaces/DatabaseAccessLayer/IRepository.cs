@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GeolocationPoC.Core.Interfaces.Db
+namespace GeolocationPoC.Core.Interfaces.DatabaseAccessLayer
 {
     public interface IRepository<T> where T : EntityBase
     {

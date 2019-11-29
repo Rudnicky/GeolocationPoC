@@ -1,8 +1,8 @@
-using GeolocationPoC.Core.Interfaces.Db;
-using GeolocationPoC.Core.Interfaces.Web;
+using GeolocationPoC.Core.Interfaces.DatabaseAccessLayer;
+using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
 using GeolocationPoC.Persistence;
-using GeolocationPoC.Persistence.Repositories.Db;
-using GeolocationPoC.Persistence.Repositories.Web;
+using GeolocationPoC.Persistence.Repositories.DatabaseAccessLayer;
+using GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

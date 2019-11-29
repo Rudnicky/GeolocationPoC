@@ -1,9 +1,9 @@
 ﻿using GeolocationPoC.Core.Domain;
-using GeolocationPoC.Core.Interfaces.Db;
+using GeolocationPoC.Core.Interfaces.DatabaseAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace GeolocationPoC.Persistence.Repositories.Db
+namespace GeolocationPoC.Persistence.Repositories.DatabaseAccessLayer
 {
     public class GeolocationDbRepository : Repository<Geolocation>, IGeolocationDbRepository
     {

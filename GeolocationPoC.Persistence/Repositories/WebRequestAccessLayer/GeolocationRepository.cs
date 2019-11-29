@@ -1,9 +1,9 @@
 ﻿using GeolocationPoC.Core.Domain.Web;
-using GeolocationPoC.Core.Interfaces.Web;
+using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
 using GeolocationPoC.Core.Utils;
 using System.Threading.Tasks;
 
-namespace GeolocationPoC.Persistence.Repositories.Web
+namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
 {
     public class GeolocationRepository : IGeolocationRepository
     {
