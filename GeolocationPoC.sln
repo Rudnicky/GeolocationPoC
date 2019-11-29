@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeolocationPoC", "GeolocationPoC\GeolocationPoC.csproj", "{EBAF4F88-7B87-4324-B202-8FB2088F23A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeolocationPoC.Persistence", "GeolocationPoC.Persistence\GeolocationPoC.Persistence.csproj", "{0ECDB6AB-EA0A-4B4E-B152-6A0ED717EE42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeolocationPoC.Persistence", "GeolocationPoC.Persistence\GeolocationPoC.Persistence.csproj", "{0ECDB6AB-EA0A-4B4E-B152-6A0ED717EE42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeolocationPoC.Core", "GeolocationPoC.Core\GeolocationPoC.Core.csproj", "{923E0B26-6B7F-4617-8FE5-43A27C05C8AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeolocationPoC.Core", "GeolocationPoC.Core\GeolocationPoC.Core.csproj", "{923E0B26-6B7F-4617-8FE5-43A27C05C8AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeolocationPoC.WebApi", "GeolocationPoC.WebApi\GeolocationPoC.WebApi.csproj", "{3D27805D-CB51-4806-82C1-2BB27FCE3383}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{923E0B26-6B7F-4617-8FE5-43A27C05C8AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{923E0B26-6B7F-4617-8FE5-43A27C05C8AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{923E0B26-6B7F-4617-8FE5-43A27C05C8AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D27805D-CB51-4806-82C1-2BB27FCE3383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D27805D-CB51-4806-82C1-2BB27FCE3383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D27805D-CB51-4806-82C1-2BB27FCE3383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D27805D-CB51-4806-82C1-2BB27FCE3383}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,39 +9,39 @@ namespace GeolocationPoC.Persistence.Repositories.Db
 {
     public class Repository<T> : IRepository<T> where T : EntityBase
     {
-        private readonly GeolocationDbContext _context;
+        protected readonly GeolocationDbContext Context;
 
         public Repository(GeolocationDbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public void Add(T entity)
         {
-            _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            Context.Set<T>().Add(entity);
+            Context.SaveChanges();
         }
 
         public void Delete(T entity)
         {
-            _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
+            Context.Set<T>().Remove(entity);
+            Context.SaveChanges();
         }
 
-        public T Get(int Id)
+        public async Task<T> Get(int Id)
         {
-            return _context.Set<T>().Find(Id);
+            return await Context.Set<T>().SingleOrDefaultAsync(x => x.Id == Id).ConfigureAwait(false);
         }
 
         public async Task<List<T>> GetAll()
         {
-            return await _context.Set<T>().AsQueryable().ToListAsync();
+            return await Context.Set<T>().AsQueryable().ToListAsync().ConfigureAwait(false);
         }
 
         public void Update(T entity)
         {
-            _context.Set<T>().Update(entity);
-            _context.SaveChanges();
+            Context.Set<T>().Update(entity);
+            Context.SaveChanges();
         }
     }
 }

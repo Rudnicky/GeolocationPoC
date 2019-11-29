@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace GeolocationPoC
+namespace GeolocationPoC.WebApi
 {
     public class Startup
     {
@@ -24,7 +24,14 @@ namespace GeolocationPoC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddDbContext<GeolocationDbContext>(opt => opt.UseInMemoryDatabase("GeolocationsDB"));
+
+            services.AddControllers();
+
+            // Let services know how to resolve dependencies
+            services.AddScoped<IRequestProvider, RequestProvider>();
+            services.AddScoped<IGeolocationRepository, GeolocationRepository>();
+            services.AddScoped<IGeolocationDbRepository, GeolocationDbRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,15 +41,8 @@ namespace GeolocationPoC
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -50,9 +50,7 @@ namespace GeolocationPoC
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Geolocation}/{action=Index}");
+                endpoints.MapControllers();
             });
         }
     }
