@@ -32,6 +32,10 @@ namespace GeolocationPoC.WebApi
             services.AddScoped<IRequestProvider, RequestProvider>();
             services.AddScoped<IGeolocationRepository, GeolocationRepository>();
             services.AddScoped<IGeolocationDbRepository, GeolocationDbRepository>();
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Put title here", Description = "DotNet Core Api 3 - with swagger" }); });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +55,12 @@ namespace GeolocationPoC.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
     }
