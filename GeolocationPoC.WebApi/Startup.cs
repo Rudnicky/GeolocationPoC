@@ -32,6 +32,7 @@ namespace GeolocationPoC.WebApi
             services.AddScoped<IRequestProvider, RequestProvider>();
             services.AddScoped<IGeolocationRepository, GeolocationRepository>();
             services.AddScoped<IGeolocationDbRepository, GeolocationDbRepository>();
+            services.AddScoped<IGeolocationManager, GeolocationManager>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Put title here", Description = "DotNet Core Api 3 - with swagger" }); });
