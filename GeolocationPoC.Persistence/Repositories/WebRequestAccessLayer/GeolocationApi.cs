@@ -1,5 +1,4 @@
 ﻿using GeolocationPoC.Core.Domain;
-using GeolocationPoC.Core.Domain.Db;
 using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
 using GeolocationPoC.Core.Utils;
 using System;

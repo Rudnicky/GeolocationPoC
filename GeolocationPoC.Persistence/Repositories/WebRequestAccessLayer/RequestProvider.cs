@@ -1,5 +1,4 @@
-﻿using GeolocationPoC.Core.Domain.Db;
-using GeolocationPoC.Core.Exceptions;
+﻿using GeolocationPoC.Core.Exceptions;
 using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -28,6 +27,7 @@ namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
 
         public async Task<TResult> GetAsync<TResult>(string uri, string token)
         {
+            // ugly hack for overstepping ssl
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
