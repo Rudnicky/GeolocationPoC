@@ -6,6 +6,8 @@
 
         public const string BASE_ENDPOINT = "http://api.ipstack.com";
 
+        public const string LOCAL_ENDPOINT = "https://localhost:5001/api/geolocation";
+
         public const string IP_REGEX_PATTERN = @"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
     }
 }

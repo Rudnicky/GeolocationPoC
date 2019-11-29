@@ -1,7 +1,6 @@
 ﻿using GeolocationPoC.Core.Domain;
 using GeolocationPoC.Core.Exceptions;
 using GeolocationPoC.Core.Interfaces.DatabaseAccessLayer;
-using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

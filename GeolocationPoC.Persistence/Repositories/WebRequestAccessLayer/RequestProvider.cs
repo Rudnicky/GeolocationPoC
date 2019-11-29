@@ -1,4 +1,5 @@
-﻿using GeolocationPoC.Core.Exceptions;
+﻿using GeolocationPoC.Core.Domain.Db;
+using GeolocationPoC.Core.Exceptions;
 using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -27,8 +28,20 @@ namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
 
         public async Task<TResult> GetAsync<TResult>(string uri, string token)
         {
-            HttpClient httpClient = CreateHttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync($"{uri}?access_key={token}");
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            HttpClient httpClient = CreateHttpClient(clientHandler);
+            HttpResponseMessage response = null;
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                response = await httpClient.GetAsync($"{uri}?access_key={token}");
+            }
+            else
+            {
+                response = await httpClient.GetAsync(uri);
+            }
 
             await HandleResponse(response);
             string serialized = await response.Content.ReadAsStringAsync();
@@ -38,9 +51,25 @@ namespace GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer
             return result;
         }
 
-        private HttpClient CreateHttpClient()
+        public async Task<TResult> Delete<TResult>(string uri)
         {
-            var httpClient = new HttpClient();
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            HttpClient httpClient = CreateHttpClient(clientHandler);
+            HttpResponseMessage response = await httpClient.DeleteAsync(uri);
+
+            await HandleResponse(response);
+            string serialized = await response.Content.ReadAsStringAsync();
+
+            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
+
+            return result;
+        }
+
+        private HttpClient CreateHttpClient(HttpClientHandler clientHandler)
+        {
+            var httpClient = new HttpClient(clientHandler);
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

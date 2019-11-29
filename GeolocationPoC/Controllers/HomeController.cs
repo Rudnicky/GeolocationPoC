@@ -1,8 +1,6 @@
-﻿using GeolocationPoC.Core.Interfaces.Web;
-using GeolocationPoC.Models;
+﻿using GeolocationPoC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -11,12 +9,10 @@ namespace GeolocationPoC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IGeolocationRepository _geolocationRepository;
 
-        public HomeController(ILogger<HomeController> logger, IGeolocationRepository geolocationRepository)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _geolocationRepository = geolocationRepository;
         }
 
         public async Task<IActionResult> Index()

@@ -1,11 +1,9 @@
-using GeolocationPoC.Core.Interfaces.Db;
-using GeolocationPoC.Core.Interfaces.Web;
-using GeolocationPoC.Persistence;
-using GeolocationPoC.Persistence.Repositories.Db;
-using GeolocationPoC.Persistence.Repositories.Web;
+using GeolocationPoC.Core.Interfaces.DatabaseAccessLayer;
+using GeolocationPoC.Core.Interfaces.WebRequestAccessLayer;
+using GeolocationPoC.Persistence.Repositories.DatabaseAccessLayer;
+using GeolocationPoC.Persistence.Repositories.WebRequestAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +23,10 @@ namespace GeolocationPoC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // Let services know how to resolve dependencies
+            services.AddScoped<IRequestProvider, RequestProvider>();
+            services.AddScoped<IGeolocationApi, GeolocationApi>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +48,7 @@ namespace GeolocationPoC
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
