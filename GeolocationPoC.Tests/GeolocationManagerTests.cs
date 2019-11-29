@@ -171,5 +171,99 @@ namespace GeolocationPoC.Tests
             await geolocationRepository.Received().Get(ip);
             geolocationDbRepository.Received().Add(Arg.Any<Geolocation>());
         }
+
+        [Fact]
+        public async void Delete_ShouldNotDeleteObject_WrongIdFormat()
+        {
+            // Arrange
+            var id = "aaaaa22222";
+            var geolocationRepository = Substitute.For<IGeolocationRepository>();
+            var geolocationDbRepository = Substitute.For<IGeolocationDbRepository>();
+
+            var geolocationManager = new GeolocationManager(geolocationRepository, geolocationDbRepository);
+
+            // Act
+            var result = await geolocationManager.Delete(id);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
+            Assert.Equal(ErrorMessages.WRONG_ID_FORMAT, result.Message);
+
+            await geolocationDbRepository.DidNotReceiveWithAnyArgs().Get(Arg.Any<int>());
+            geolocationDbRepository.DidNotReceiveWithAnyArgs().Delete(Arg.Any<Geolocation>());
+        }
+
+        [Fact]
+        public async void Delete_ShouldNotDeleteObject_NotExistingValue()
+        {
+            // Arrange
+            var id = "666";
+            var geolocationRepository = Substitute.For<IGeolocationRepository>();
+            var geolocationDbRepository = Substitute.For<IGeolocationDbRepository>();
+            Geolocation geolocation = null;
+
+            geolocationDbRepository.Get(Arg.Any<int>()).Returns(geolocation);
+
+            var geolocationManager = new GeolocationManager(geolocationRepository, geolocationDbRepository);
+
+            // Act
+            var result = await geolocationManager.Delete(id);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
+            Assert.Equal(ErrorMessages.NOT_EXISTS, result.Message);
+
+            await geolocationDbRepository.Received().Get(Arg.Any<int>());
+            geolocationDbRepository.DidNotReceiveWithAnyArgs().Delete(Arg.Any<Geolocation>());
+        }
+
+        [Fact]
+        public async void Delete_ShouldNotDeleteObject_DbError()
+        {
+            // Arrange
+            var id = "666";
+            var geolocationRepository = Substitute.For<IGeolocationRepository>();
+            var geolocationDbRepository = Substitute.For<IGeolocationDbRepository>();
+
+            var results = new Results<Geolocation>(new Geolocation()).Then(new Geolocation());
+            geolocationDbRepository.Get(Arg.Any<int>()).Returns(x => results.Next());
+
+            var geolocationManager = new GeolocationManager(geolocationRepository, geolocationDbRepository);
+
+            // Act
+            var result = await geolocationManager.Delete(id);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
+            Assert.Equal(ErrorMessages.DB_ERROR, result.Message);
+
+            await geolocationDbRepository.Received(2).Get(Arg.Any<int>());
+            geolocationDbRepository.Received().Delete(Arg.Any<Geolocation>());
+        }
+
+        [Fact]
+        public async void Delete_ShouldDeleteObject_ValidData()
+        {
+            // Arrange
+            var id = "666";
+            var geolocationRepository = Substitute.For<IGeolocationRepository>();
+            var geolocationDbRepository = Substitute.For<IGeolocationDbRepository>();
+            Geolocation geolocation = null;
+
+            var results = new Results<Geolocation>(new Geolocation()).Then(geolocation);
+            geolocationDbRepository.Get(Arg.Any<int>()).Returns(x => results.Next());
+
+            var geolocationManager = new GeolocationManager(geolocationRepository, geolocationDbRepository);
+
+            // Act
+            var result = await geolocationManager.Delete(id);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+            Assert.Equal(ErrorMessages.DELETED, result.Message);
+
+            await geolocationDbRepository.Received(2).Get(Arg.Any<int>());
+            geolocationDbRepository.Received().Delete(Arg.Any<Geolocation>());
+        }
     }
 }
